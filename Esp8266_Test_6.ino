@@ -12,7 +12,7 @@ const int echoPin = 10;
 float duration, distance;
 
 const char* ssid = "Adithya"; 
-const char* password = "pcxr7223"; 
+const char* password = "psd"; 
 
 const char* host = "script.google.com";
 const int httpsPort = 443;
