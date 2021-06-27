@@ -1,4 +1,3 @@
-
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 
@@ -21,8 +20,9 @@ String GAS_ID = "AKfycbwm9vJJkaVpZepaQIEdufJ6AoOTPgpg318UqJaUJ93jTqHSrnf5";
 
 
 void setup() {
-  pinMode(12,OUTPUT);
-pinMode(13,INPUT);
+  pinMode(12,OUTPUT);//D6
+pinMode(14,INPUT);//D5
+pinMode(16,OUTPUT);
   Serial.begin(115200);
   delay(500);
 
@@ -65,18 +65,22 @@ void loop() {
   delayMicroseconds(10);
   digitalWrite(12, LOW);
 
-  float duration = pulseIn(13, HIGH);
+  float duration = pulseIn(14, HIGH);
   float distance = (duration*.0343)/2;
   Serial.print("Distance: ");
   Serial.println(distance);
   delay(100);
-  
+  if (distance>40)
+  {digitalWrite(16,HIGH);//D0
+  }
+  else 
+  digitalWrite(16,LOW);
   
   int h = 1;
   
   float t =distance;
   
-  String Temp = "Temperature : " + String(t) + " °C";
+  String Temp = "x : " + String(t) + " °C";
   String Humi = "Humidity : " + String(h) + " %";
   Serial.println(Temp);
   Serial.println(Humi);
