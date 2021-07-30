@@ -1,3 +1,4 @@
+
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 
@@ -6,7 +7,9 @@
 
 #define ON_Board_LED 2 
 float duration, distance;
-
+int Delay=20; //delay count (20==30sec)
+int k=0;
+int Total_distance=200;//length of the tank
 const char* ssid = "Adithya"; 
 const char* password = "pcxr7223"; 
 
@@ -16,7 +19,7 @@ const int httpsPort = 443;
 
 WiFiClientSecure client; 
 
-String GAS_ID = "AKfycbwm9vJJkaVpZepaQIEdufJ6AoOTPgpg318UqJaUJ93jTqHSrnf5"; 
+String GAS_ID = "AKfycbx9QnO3qUJditCvlrsozgO9CzuTwCZXWj726h0INjQI--xfbQbN"; 
 
 
 void setup() {
@@ -70,15 +73,15 @@ void loop() {
   Serial.print("Distance: ");
   Serial.println(distance);
   delay(100);
-  if (distance>40)
-  {digitalWrite(16,HIGH);//D0
+  if (distance>30)
+  {digitalWrite(16,LOW);//D0
   }
   else 
-  digitalWrite(16,LOW);
+  digitalWrite(16,HIGH);
   
   int h = 1;
   
-  float t =distance;
+  float t =Total_distance-distance;
   
   String Temp = "x : " + String(t) + " °C";
   String Humi = "Humidity : " + String(h) + " %";
@@ -104,14 +107,14 @@ void sendData(float tem, int hum) {
   String url = "/macros/s/" + GAS_ID + "/exec?temperature=" + string_temperature + "&humidity=" + "";
   Serial.print("requesting URL: ");
   Serial.println(url);
-
+  if (k==Delay){
   client.print(String("GET ") + url + " HTTP/1.1\r\n" +
          "Host: " + host + "\r\n" +
          "User-Agent: BuildFailureDetectorESP8266\r\n" +
          "Connection: close\r\n\r\n");
 
   Serial.println("request sent");
-
+  
   while (client.connected()) {
     String line = client.readStringUntil('\n');
     if (line == "\r") {
@@ -130,4 +133,7 @@ void sendData(float tem, int hum) {
   Serial.println("closing connection");
   Serial.println("==========");
   Serial.println();
+  k=0;
 } 
+else if(k<Delay) {
+k=k+1;}}
