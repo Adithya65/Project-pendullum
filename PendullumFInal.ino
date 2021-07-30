@@ -19,7 +19,7 @@ const int httpsPort = 443;
 
 WiFiClientSecure client; 
 
-String GAS_ID = "AKfycbx9QnO3qUJditCvlrsozgO9CzuTwCZXWj726h0INjQI--xfbQbN"; 
+String GAS_ID = "Gsheet Id"; 
 
 
 void setup() {
