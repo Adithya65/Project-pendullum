@@ -1,7 +1,7 @@
-### Project-pendullum
+# Project-pendullum
 
-# Circuit
+### Circuit
 ![](project.PNG)
 
- # 3D Model
+ ### 3D Model
 ![](designpic.PNG)
